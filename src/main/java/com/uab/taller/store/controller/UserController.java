@@ -7,6 +7,8 @@ import com.uab.taller.store.service.IUserService;
 import com.uab.taller.store.usecase.CreateUserUseCase;
 import com.uab.taller.store.usecase.GetUserUseCase;
 import com.uab.taller.store.usecase.GetUsersUseCase;
+import com.uab.taller.store.usecase.UpdateUserUseCase;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,8 @@ public class  UserController {
     GetUsersUseCase getUsersUseCase;
     @Autowired
     CreateUserUseCase createUserUseCase;
+    @Autowired
+    UpdateUserUseCase UpdateUserUseCase;
 
     @GetMapping()
     public List<User> getAll(){
@@ -40,12 +44,11 @@ public class  UserController {
     }
     @PostMapping (value = "/save")
     public User save(@RequestBody UserRequest userRequest){
-        User user = new User();
-        user.setName(userRequest.getName());
-        user.setLastName(userRequest.getLastName());
-        user.setEmail(userRequest.getEmail());
-        user.setPassword(userRequest.getPassword());
-        return createUserUseCase.createUser(user);
+        return createUserUseCase.createUser(userRequest);
+    }
+    @PutMapping(value = "/update/{id}")
+    public User update(@PathVariable Long id, @RequestBody UserRequest userRequest){
+        return UpdateUserUseCase.updateUser(id,userRequest);
     }
 
 }
