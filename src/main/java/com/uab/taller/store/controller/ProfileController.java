@@ -26,8 +26,6 @@ public class ProfileController {
     @Autowired
     DeleteUserUseCase deleteUserUseCase;
 
-
-
     @GetMapping()
     public List<Profile> getAllProfiles() {
         return getProfilesUseCase.getAll();

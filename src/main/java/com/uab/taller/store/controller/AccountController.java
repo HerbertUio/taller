@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/account")
+@RequestMapping(value = "/api/account")
 public class AccountController {
     @Autowired
     IAccountService accountService;
@@ -21,6 +21,7 @@ public class AccountController {
     GetAccountUseCase getAccountUseCase;
     @Autowired
     GetAccountsUseCase getAccountsUseCase;
+    @Autowired
     CreateAccountUseCase createAccountUseCase;
     @Autowired
     UpdateAccountUseCase updateAccountUseCase;
@@ -42,7 +43,7 @@ public class AccountController {
     public Account update(@PathVariable Long id, @RequestBody AccountRequest account) {
         return updateAccountUseCase.updateAccount(id, account);
     }
-    @DeleteMapping
+    @DeleteMapping(value = "deletebyid/{id}")
     public void delete(@PathVariable Long id) {
         accountService.deleteById(id);
     }
